@@ -91,8 +91,20 @@ class LinkedList {
     return false;
   }
 
-
   // find(value) returns the index of the node containing value, or null if not found.
+
+  find(value) {
+    for (let i = 0; i < this.size() - 1; i++) {
+      const node = this.at(i);
+      if (node.value === value) return i;
+    }
+
+    return null;
+  }
+
+
+
+
   // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
 }
 
