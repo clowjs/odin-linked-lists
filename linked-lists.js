@@ -102,10 +102,24 @@ class LinkedList {
     return null;
   }
 
+  // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console.
+  // The format should be: ( value ) -> ( value ) -> ( value ) -> null
 
+  toString() {
+    const string = '';
 
+    for (let i = 0; i < this.size() - 1; i++) {
+      const newString = i === 0
+        ? `( ${this.at(i).value} )`
+        : ` -> ( ${this.at(i).value} )`;
+      
+      string = string + newString;
+    }
 
-  // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
+    string = string + ' -> null';
+    
+    return string;
+  }
 }
 
 class Node {
