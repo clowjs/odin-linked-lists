@@ -120,6 +120,25 @@ class LinkedList {
     
     return string;
   }
+
+  // insertAt(value, index) that inserts a new node with the provided value at the given index.
+
+  insertAt(value, index) {
+    const newNode = new Node();
+    newNode.value = value;
+    
+    const nodeAtIndex = this.at(index);
+    newNode.nextNode = nodeAtIndex;
+
+    if (index === 0) {
+      this.head = newNode;
+    } else {
+      const nodeBeforeIndex = this.at(index - 1)
+      nodeBeforeIndex.nextNode = newNode;
+    }
+  }
+
+  // removeAt(index) that removes the node at the given index.
 }
 
 class Node {
