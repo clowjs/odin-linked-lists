@@ -1,6 +1,5 @@
 const LinkedList = require('./linked-lists');
 
-
 // Test append() method
 test('append() should add a new node to the end of the list', () => {
   const list = new LinkedList();
