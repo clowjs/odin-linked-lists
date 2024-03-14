@@ -1,12 +1,18 @@
 class LinkedList {
   constructor() {
-    this.head = null;
+    this._head = null;
   }
 
   // append(value) adds a new node containing value to the end of the list
   append(value) {
     const newNode = new Node();
     newNode.value = value;
+
+    if (!this.head()) {
+      this._head = newNode;
+      return;
+    }
+
     this.tail().nextNode = newNode;
   }
 
@@ -15,14 +21,14 @@ class LinkedList {
     const newNode = new Node();
     newNode.value = value;
     newNode.nextNode = this.head();
-    this.head = newNode;
+    this._head = newNode;
   }
 
   // size returns the total number of nodes in the list
   size() {
-    if (!this.head) return 0;
+    if (!this.head()) return 0;
 
-    let currentNode = this.head;
+    let currentNode = this.head();
 
     if (!currentNode.nextNode) return 1;
 
@@ -37,12 +43,12 @@ class LinkedList {
   }
 
   // head returns the first node in the list
-  head() { return this.head }
+  head() { return this._head }
 
   // tail returns the last node in the list
   tail() {
     if (!this.head()) return null
-    if (!this.head().nextNode) return this.head;
+    if (!this.head().nextNode) return this.head();
 
     let currentNode = this.head();
 
@@ -83,7 +89,7 @@ class LinkedList {
   // contains(value) returns true if the passed in value is in the list and otherwise returns false.
 
   contains(value) {
-    for (let i = 0; i < this.size() - 1; i++) {
+    for (let i = 0; i < this.size(); i++) {
       const node = this.at(i);
       if (node.value === value) return true;
     }
@@ -94,7 +100,7 @@ class LinkedList {
   // find(value) returns the index of the node containing value, or null if not found.
 
   find(value) {
-    for (let i = 0; i < this.size() - 1; i++) {
+    for (let i = 0; i < this.size(); i++) {
       const node = this.at(i);
       if (node.value === value) return i;
     }
@@ -106,9 +112,11 @@ class LinkedList {
   // The format should be: ( value ) -> ( value ) -> ( value ) -> null
 
   toString() {
-    const string = '';
+    if (this.size() < 1) return null;
 
-    for (let i = 0; i < this.size() - 1; i++) {
+    let string = '';
+
+    for (let i = 0; i < this.size(); i++) {
       const newString = i === 0
         ? `( ${this.at(i).value} )`
         : ` -> ( ${this.at(i).value} )`;
@@ -131,7 +139,7 @@ class LinkedList {
     newNode.nextNode = nodeAtIndex;
 
     if (index === 0) {
-      this.head = newNode;
+      this._head = newNode;
       return;
     } 
     
@@ -143,16 +151,19 @@ class LinkedList {
 
   // removeAt(index) that removes the node at the given index.
 
-  remoteAt(index) {
+  removeAt(index) {
+    if (index > this.size() - 1) return;
+    if (index < 0) return;
+
     const nodeAtIndex = this.at(index);
 
     if (index === 0) {
       if (!this.at(index + 1)) {
-        this.head = null;
+        this._head = null;
         return;
       }
 
-      this.head = this.at(index + 1);
+      this._head = this.at(index + 1);
       return;
     }
 
@@ -163,7 +174,6 @@ class LinkedList {
 
     this.at(index - 1).nextNode = this.at(index + 1);
     return;
-    }
   }
 }
 
@@ -173,3 +183,56 @@ class Node {
     this.nextNode = null;
   }
 }
+
+module.exports = LinkedList;
+
+// // Tests
+
+// const linkedList = new LinkedList();
+
+// console.log(`Empty linked list: ${linkedList}`);
+
+// // append(value) adds a new node containing value to the end of the list
+// linkedList.append('Test node 1');
+
+// // prepend(value) adds a new node containing value to the start of the list
+// linkedList.prepend('Test node 0');
+
+// // size returns the total number of nodes in the list
+// console.log(`Size of linked list after adding 2 nodes: ${linkedList.size()}`);
+
+// // head returns the first node in the list
+// console.log(`Head of linked list: ${linkedList.head().value}`);
+
+// // tail returns the last node in the list
+// console.log(`Tail of linked list: ${linkedList.tail().value}`);
+
+// // at(index) returns the node at the given index
+// console.log(`Node at index 1: ${linkedList.at(1).value}`);
+
+// // pop removes the last element from the list
+// console.log(`Popped node: ${linkedList.pop().value}`);
+// console.log(`Size of linked list after pop: ${linkedList.size()}`);
+// console.log(`Tail of linked list after pop: ${linkedList.tail().value}`);
+
+// // contains(value) returns true if the passed in value is in the list and otherwise returns false.
+// console.log(`Contains 'Test node 0': ${linkedList.contains('Test node 0')}`);
+// console.log(`Contains 'Test node 1': ${linkedList.contains('Test node 1')}`);
+
+// // find(value) returns the index of the node containing value, or null if not found.
+// console.log(`Find 'Test node 0': ${linkedList.find('Test node 0')}`);
+
+// // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console.
+// // -- The format should be: ( value ) -> ( value ) -> ( value ) -> null
+// console.log(`Linked list as string: ${linkedList.toString()}`);
+
+// // insertAt(value, index) that inserts a new node with the provided value at the given index.
+// linkedList.append('Test node 1');
+// linkedList.append('Test node 2');
+// console.log(`Linked list before insert: ${linkedList.toString()}`);
+// linkedList.insertAt('Test node 1.5', 2);
+// console.log(`Linked list after insert at index 2: ${linkedList.toString()}`);
+
+// // removeAt(index) that removes the node at the given index.
+// linkedList.remoteAt(2);
+// console.log(`Linked list after remove of index 2: ${linkedList.toString()}`);
