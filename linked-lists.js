@@ -132,13 +132,39 @@ class LinkedList {
 
     if (index === 0) {
       this.head = newNode;
-    } else {
-      const nodeBeforeIndex = this.at(index - 1)
-      nodeBeforeIndex.nextNode = newNode;
-    }
+      return;
+    } 
+    
+    const nodeBeforeIndex = this.at(index - 1)
+    nodeBeforeIndex.nextNode = newNode;
+
+    return;    
   }
 
   // removeAt(index) that removes the node at the given index.
+
+  remoteAt(index) {
+    const nodeAtIndex = this.at(index);
+
+    if (index === 0) {
+      if (!this.at(index + 1)) {
+        this.head = null;
+        return;
+      }
+
+      this.head = this.at(index + 1);
+      return;
+    }
+
+    if (!nodeAtIndex.nextNode) {
+      this.at(index - 1).nextNode = null;
+      return;
+    }
+
+    this.at(index - 1).nextNode = this.at(index + 1);
+    return;
+    }
+  }
 }
 
 class Node {
