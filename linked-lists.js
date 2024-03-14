@@ -69,6 +69,22 @@ class LinkedList {
     return currentNode;
   }
 
+  // pop() removes the last element from the list
+
+  pop() {
+    const penultimateIndex = this.size() - 2;
+    const penultimateNode = this.at(penultimateIndex);
+    const lastNode = this.tail();
+    penultimateNode.nextNode = null;
+
+    return lastNode;
+  }
+
+
+
+  // contains(value) returns true if the passed in value is in the list and otherwise returns false.
+  // find(value) returns the index of the node containing value, or null if not found.
+  // toString represents your LinkedList objects as strings, so you can print them out and preview them in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> null
 }
 
 class Node {
